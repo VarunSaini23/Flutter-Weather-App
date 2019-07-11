@@ -7,6 +7,7 @@ import 'package:weather_your/src/network/weather_api_provider.dart';
 class Repository{
 
   Future<OwmCurrentWeatherModel> getCurrentWeather(double lat, double long) async {
+    print("in getWeather");
     return WeatherApiProvider().getCurrentWeather(lat, long);
   }
 

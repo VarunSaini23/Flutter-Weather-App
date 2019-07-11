@@ -10,11 +10,12 @@ class ForecastDetails extends StatefulWidget {
   _ForecastDetailsState createState() => _ForecastDetailsState();
 }
 
-class _ForecastDetailsState extends State<ForecastDetails> {
+class _ForecastDetailsState extends State<ForecastDetails> with AutomaticKeepAliveClientMixin<ForecastDetails>{
   HomeVerticalTwoBloc homeTwoBloc;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     homeTwoBloc = HomeVerticalTwoProvider.of(context);
     homeTwoBloc.getCurrentForecast();
 
@@ -53,4 +54,8 @@ class _ForecastDetailsState extends State<ForecastDetails> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

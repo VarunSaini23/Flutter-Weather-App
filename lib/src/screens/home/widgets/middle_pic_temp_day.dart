@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_your/src/blocs/home/home_provider.dart';
 import 'package:weather_your/src/helpers/date_format.dart';
 import 'package:weather_your/src/helpers/farh_to_celcuis.dart';
 import 'package:weather_your/src/models/owm_current_weather_model.dart';
-import 'package:woocommerce_api/woocommerce_api.dart';
+import 'package:after_layout/after_layout.dart';
 
 import 'dart:io';
-import 'package:oauth1/oauth1.dart' as oauth1;
+
+import 'package:weather_your/src/screens/home/home_screen.dart';
 
 class MiddleHome extends StatefulWidget {
   @override
   _MiddleHomeState createState() => _MiddleHomeState();
 }
 
-class _MiddleHomeState extends State<MiddleHome> {
+class _MiddleHomeState extends State<MiddleHome> with AutomaticKeepAliveClientMixin<MiddleHome>{
   HomeBloc homeBloc;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     homeBloc = HomeProvider.of(context);
+    homeBloc.getCurrentWeather();
+    homeBloc.getCurrentPlace();
     return Column(
       children: <Widget>[
         SizedBox(
@@ -36,20 +45,25 @@ class _MiddleHomeState extends State<MiddleHome> {
       ],
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class CityImage extends StatelessWidget {
   final HomeBloc homeBloc;
 
   CityImage({this.homeBloc});
+
   final icon_base_url = 'http://openweathermap.org/img/wn';
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: homeBloc.currentWeather,
-      builder: (context,snapshot){
-        if(!snapshot.hasData){
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
           return RefreshProgressIndicator();
         }
         return Container(
@@ -60,7 +74,11 @@ class CityImage extends StatelessWidget {
 //            fit: BoxFit.fill,
 //            color: Colors.white,
 //          ),
-        child: Image.asset('assets/images/delhi.png',fit: BoxFit.fill,color: Colors.white,),
+          child: Image.asset(
+            'assets/images/delhi.png',
+            fit: BoxFit.fill,
+            color: Colors.white,
+          ),
         );
       },
     );

@@ -9,11 +9,12 @@ class TopDetails extends StatefulWidget {
   _TopDetailsState createState() => _TopDetailsState();
 }
 
-class _TopDetailsState extends State<TopDetails> {
+class _TopDetailsState extends State<TopDetails> with AutomaticKeepAliveClientMixin<TopDetails>{
   HomeBloc homeBloc;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     homeBloc = HomeProvider.of(context);
     homeBloc.getCurrentWeather();
     return Container(
@@ -77,6 +78,10 @@ class _TopDetailsState extends State<TopDetails> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }
 
 class CommonPHWLWidget extends StatelessWidget {

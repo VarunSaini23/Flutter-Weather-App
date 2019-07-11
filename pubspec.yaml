@@ -11,7 +11,7 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 3.0.0+3
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -27,10 +27,15 @@ dependencies:
   geocoder: '^0.1.2'
   rxdart: ^0.22.0
   http: ^0.11.3+17
-  flutter_svg: ^0.1.1
   intl: ^0.15.8
-  oauth1: ^1.0.1
-  woocommerce_api: ^0.0.8
+  shared_preferences: ^0.5.3+1
+  after_layout: ^1.0.7+2
+  flutter_launcher_icons: "^0.7.2"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
 
 
 
